@@ -19,11 +19,11 @@ import winston from "winston"
 import { ec2WinstonFormat } from "winston-format-ec2"
 
 const logger = winston.createLogger({
-	format: ec2WinstonFormat(),
-	level: "silly",
-	transports: [
-		new winston.transports.Console(),
-	],
+  format: ec2WinstonFormat(),
+  level: "silly",
+  transports: [
+    new winston.transports.Console(),
+  ],
 })
 
 logger.silly("Silly log statement")
@@ -33,8 +33,8 @@ logger.silly("Silly log statement")
 
 ```typescript
 ec2WinstonFormat({
-	color: "\u001b", // If you want the instance ID to be colored
-	maxLength: 7, // To take only the first few characters of the instance ID instead of the whole thing
+  color: "\u001b", // If you want the instance ID to be colored
+  maxLength: 7, // To take only the first few characters of the instance ID instead of the whole thing
 })
 ```
 
@@ -48,7 +48,7 @@ import { ec2WinstonFormat } from "winston-format-ec2"
 
 const metadataService = new AWS.MetadataService()
 const format = ec2WinstonFormat({
-	awsMetadataService: metadataService,
+  awsMetadataService: metadataService,
 })
 ```
 
