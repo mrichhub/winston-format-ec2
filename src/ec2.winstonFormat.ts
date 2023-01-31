@@ -12,19 +12,19 @@ import { WinstonTransformableInfo } from "./types/winston.transformableInfo"
 export class EC2WinstonFormatter extends EventEmitter
 {
 	private readonly awsMetadataService: AWS.MetadataService
-	private instanceId?: string
+	private instanceIdFormatted?: string
 	
 	constructor(
-		awsMetadataService?: AWS.MetadataService,
+		private readonly config: EC2WinstonFormatConfig = {},
 	) {
 		super()
 
-		this.awsMetadataService = awsMetadataService || new AWS.MetadataService()
+		this.awsMetadataService = config.awsMetadataService || new AWS.MetadataService()
 		void this.loadInstanceId()
 	}
 
 	format(info: WinstonTransformableInfo): TransformableInfo {
-		const messagePrepend = this.instanceId ? `\u001b[36m${this.instanceId}\u001b[0m ` : ""
+		const messagePrepend = this.instanceIdFormatted ? `${this.instanceIdFormatted} ` : ""
 
 		return {
 			...info,
@@ -37,9 +37,19 @@ export class EC2WinstonFormatter extends EventEmitter
 		const metadataToken = await this.requestTokenFromMetadata()
 
 		if (metadataToken) {
-			this.instanceId = await this.requestInstanceIdFromMetadata(metadataToken)
+			let instanceId = await this.requestInstanceIdFromMetadata(metadataToken)
 
-			if (this.instanceId) {
+			if (instanceId) {
+				if (this.config.maxLength) {
+					instanceId = instanceId.substring(0, this.config.maxLength)
+				}
+
+				this.instanceIdFormatted = instanceId
+
+				if (this.config.color) {
+					this.instanceIdFormatted = `${this.config.color}[36m${instanceId}${this.config.color}[0m`
+				}
+				
 				this.emit("loaded")
 			}
 		}
@@ -90,13 +100,14 @@ export class EC2WinstonFormatter extends EventEmitter
 	}
 }
 
-export const ec2WinstonFormat = (config?: EC2WinstonFormatterConfig): Format => {
-	const formatter = config?.formatter || new EC2WinstonFormatter(config?.awsMetadataService)
+export const ec2WinstonFormat = (config?: EC2WinstonFormatConfig): Format => {
+	const formatter = new EC2WinstonFormatter(config)
 	
 	return winston.format((info: WinstonTransformableInfo): TransformableInfo => formatter.format(info))()
 }
 
-export type EC2WinstonFormatterConfig = {
+export type EC2WinstonFormatConfig = {
 	awsMetadataService?: AWS.MetadataService
-	formatter?: EC2WinstonFormatter
+	color?: string
+	maxLength?: number
 }

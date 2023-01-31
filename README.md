@@ -9,7 +9,7 @@ The instance ID is loaded dynamically via the [aws-sdk](https://www.npmjs.com/pa
 ### Installing
 
 ``` bash
-  $ npm i winston-format-ec2
+$ npm i winston-format-ec2
 ```
 
 ## Usage 
@@ -27,6 +27,15 @@ const logger = winston.createLogger({
 })
 
 logger.silly("Silly log statement")
+```
+
+### Format Options
+
+```typescript
+ec2WinstonFormat({
+	color: "\u001b", // If you want the instance ID to be colored
+	maxLength: 7, // To take only the first few characters of the instance ID instead of the whole thing
+})
 ```
 
 ### Injecting MetadataService
