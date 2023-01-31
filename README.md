@@ -1,8 +1,8 @@
 # winston-format-ec2
 
-A [Winston][https://www.npmjs.com/package/winston] (>= 3.x) format for prepending the AWS EC2 instance ID (e.g. `i-abc123def456`) onto your log statements.
+A [Winston](https://www.npmjs.com/package/winston) (>= 3.x) format for prepending the AWS EC2 instance ID (e.g. `i-abc123def456`) onto your log statements.
 
-The instance ID is loaded dynamically via the [aws-sdk][https://www.npmjs.com/package/aws-sdk] utilizing the `MetadataService`. 
+The instance ID is loaded dynamically via the [aws-sdk](https://www.npmjs.com/package/aws-sdk) utilizing the `MetadataService`. 
 
 ## Installation
 
