@@ -17,7 +17,7 @@ describe("ec2WinstonFormat", () => {
 		})
 		const logEmitterTransport = new LogEmitterTransport()
 		const logger = winston.createLogger({
-			format:  winston.format((info: WinstonTransformableInfo): TransformableInfo => ec2Formatter.format(info))(),
+			format: winston.format((info: WinstonTransformableInfo): TransformableInfo => ec2Formatter.format(info))(),
 			level: "debug",
 			transports: [
 				logEmitterTransport,

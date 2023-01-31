@@ -19,7 +19,10 @@ import winston from "winston"
 import { ec2WinstonFormat } from "winston-format-ec2"
 
 const logger = winston.createLogger({
-  format: ec2WinstonFormat(),
+  format: winston.format.combine(
+    winston.format.simple(),
+    ec2WinstonFormat(),
+  ),
   level: "silly",
   transports: [
     new winston.transports.Console(),
@@ -28,6 +31,8 @@ const logger = winston.createLogger({
 
 logger.silly("Silly log statement")
 ```
+
+This example would output: `i-abc123def456 silly: Silly log statement`
 
 ### Format Options
 
