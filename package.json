@@ -1,6 +1,6 @@
 {
   "name": "winston-format-ec2",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "A winston format for prepending AWS EC2 instance id onto each log statement.",
   "main": "./lib/index.js",
   "files": [
