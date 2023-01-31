@@ -15,18 +15,18 @@ The instance ID is loaded dynamically via the [aws-sdk](https://www.npmjs.com/pa
 ## Usage 
 
 ```typescript
-  import winston from "winston"
-  import { ec2WinstonFormat } from "winston-format-ec2"
+import winston from "winston"
+import { ec2WinstonFormat } from "winston-format-ec2"
 
-  const logger = winston.createLogger({
-    format: ec2WinstonFormat(),
+const logger = winston.createLogger({
+	format: ec2WinstonFormat(),
 	level: "silly",
 	transports: [
-      new winston.transports.Console(),
-    ],
-  })
+		new winston.transports.Console(),
+	],
+})
 
-  logger.silly("Silly log statement")
+logger.silly("Silly log statement")
 ```
 
 ### Injecting MetadataService
@@ -34,12 +34,13 @@ The instance ID is loaded dynamically via the [aws-sdk](https://www.npmjs.com/pa
 You can also inject an instance of the AWS MetadataService:
 
 ```typescript
-  import AWS from "aws-sdk"
+import AWS from "aws-sdk"
+import { ec2WinstonFormat } from "winston-format-ec2"
 
-  const metadataService = new AWS.MetadataService()
-  const format = ec2WinstonFormat({
-    awsMetadataService: metadataService,
-  })
+const metadataService = new AWS.MetadataService()
+const format = ec2WinstonFormat({
+	awsMetadataService: metadataService,
+})
 ```
 
 #### Author: [Mike Richards](https://twitter.com/MMRichards)
