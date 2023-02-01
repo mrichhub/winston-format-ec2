@@ -21,9 +21,7 @@ import { ec2WinstonFormat } from "winston-format-ec2"
 const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.simple(),
-    ec2WinstonFormat({
-      color: "\u001b", //2aa198
-    }),
+    ec2WinstonFormat(),
   ),
   level: "silly",
   transports: [
@@ -31,10 +29,8 @@ const logger = winston.createLogger({
   ],
 })
 
-logger.silly("You silly log statement")
+logger.silly("You silly log statement") // Outputs 'i-abc123def456 silly: You silly log statement'
 ```
-
-This example would output: "$${\color{green}i-abc123def456}$$ silly: You silly log statement"
 
 ### Format Options
 
