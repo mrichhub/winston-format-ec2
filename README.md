@@ -34,7 +34,7 @@ const logger = winston.createLogger({
 logger.silly("You silly log statement")
 ```
 
-This example would output: **<span style="color:#2aa198">i-abc123def456</span> silly: You silly log statement**
+This example would output: "<span style="color:#2aa198">i-abc123def456</span> silly: You silly log statement"
 
 ### Format Options
 
